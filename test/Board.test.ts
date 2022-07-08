@@ -1,5 +1,5 @@
-import Board from "../src/Board.js"
-import Card from "../src/Card.js";
+import Board from "../src/Board"
+import Card from "../src/Card";
 
 test('Deve criar um novo quadro com nome e descrição', () => {
     const name = "name";
@@ -14,7 +14,7 @@ test('Deve permitir incluir colunas no quadro (por exemplo: Todo, Doing e Done) 
     board.addColumn("TODO", true);
     board.addColumn("DOING", true);
     board.addColumn("DONE", false);
-    expect(board.columns).toHaveLength(3);
+    expect(board.getColumns()).toHaveLength(3);
 });
 
 test('Deve associar cartões em cada uma das colunas contendo o título da tarefa e a estimativa em horas', () => {
@@ -25,7 +25,9 @@ test('Deve associar cartões em cada uma das colunas contendo o título da taref
     board.addCard("TODO", "Task 1", 4);
     board.addCard("TODO", "Task 2", 1);
     board.addCard("TODO", "Task 3", 6);
-    expect(board.getColumn("TODO").getCards()).toHaveLength(3);
+    const columnTodo = board.getColumn("TODO");
+    expect(columnTodo).toBeDefined()
+    expect(columnTodo?.getCards()).toHaveLength(3);
 });
 
 test('Deve ser possível calcular a estimativa total de cada coluna', () => {
@@ -36,5 +38,5 @@ test('Deve ser possível calcular a estimativa total de cada coluna', () => {
     board.addCard("TODO", "Task 1", 4);
     board.addCard("TODO", "Task 2", 1);
     board.addCard("TODO", "Task 3", 6);
-    expect(board.getColumn("TODO").getTotalEffort()).toBe(11);
+    expect(board.getColumn("TODO")?.getTotalEffort()).toBe(11);
 });

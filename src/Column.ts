@@ -1,19 +1,21 @@
+import Card from "./Card";
+
 export default class Column {
-    constructor(name, shouldCountCardTime) {
-        this.name = name;
-        this.shouldCountCardTime = shouldCountCardTime;
+    private cards: Card[];
+
+    constructor(readonly name: string, readonly shouldCountCardTime: boolean) {
         this.cards = [];
     }
 
-    attach(card) {
+    attach(card: Card) {
         this.cards.push(card);
     }
 
-    getCards() {
+    getCards(): Card[] {
         return this.cards;
     }
 
     getTotalEffort() {
         return this.cards.map(card => card.effort).reduce((prev, current) => prev + current);
     }
-};
+}

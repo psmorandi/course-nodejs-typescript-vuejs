@@ -1,4 +1,4 @@
-import Board from "./Board.js";
+import Board from "./Board";
 
 const board = new Board("name", "description");
     board.addColumn("TODO", true);

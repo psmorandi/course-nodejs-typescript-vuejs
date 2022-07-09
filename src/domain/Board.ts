@@ -1,10 +1,12 @@
 import Card from "./Card";
 import Column from "./Column";
+import Entity from "./Entity";
 
-export default class Board {
+export default class Board extends Entity {
     private columns: Column[];
 
     constructor(readonly name: string, readonly description: string) {
+        super();
         this.columns = [];
     }
 
@@ -23,7 +25,7 @@ export default class Board {
         return this.columns.find((col) => col.name === columnName);
     }
 
-    getColumns() {
+    getColumns(): Column[] {
         return this.columns;
     }
 }

@@ -1,4 +1,4 @@
-import Board from "../src/Board"
+import Board from "../src/domain/Board"
 import Card from "../src/Card";
 
 test('Deve criar um novo quadro com nome e descrição', () => {

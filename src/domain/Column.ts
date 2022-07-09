@@ -1,9 +1,11 @@
 import Card from "./Card";
+import Entity from "./Entity";
 
-export default class Column {
+export default class Column extends Entity {
     private cards: Card[];
 
     constructor(readonly name: string, readonly shouldCountCardTime: boolean) {
+        super();
         this.cards = [];
     }
 

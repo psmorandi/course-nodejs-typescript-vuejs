@@ -8,6 +8,10 @@ export default class BoardRepositoryMemory implements BoardRepository {
         this.boards = [];
     }
 
+    getBoard(id: string): Board | undefined {
+        return this.boards.find((board) => board.id === id);
+    }
+
     save(board: Board): string {
         this.boards.push(board);
         return board.id;

@@ -1,5 +1,5 @@
 import BoardRepositoryMemory from "../src/adapter/memory/BoardRepositoryMemory";
-import Board from "../src/domain/Board";
+import Board from "../src/domain/entity/Board";
 import BoardRepository from "../src/domain/repository/BoardRepository";
 import GetBoards from "../src/domain/usecase/GetBoards";
 

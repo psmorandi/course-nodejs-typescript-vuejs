@@ -1,5 +1,5 @@
-import Board from "../domain/Board";
-import Card from "../domain/Card";
+import Board from "../domain/entity/Board";
+import Card from "../domain/entity/Card";
 import { http } from "../infra/HttpServer";
 
 export default class BoardsController {

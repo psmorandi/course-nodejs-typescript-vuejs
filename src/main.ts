@@ -1,6 +1,6 @@
 import BoardsController from "./application/BoardsController";
-import Board from "./domain/Board";
-import Card from "./domain/Card";
+import Board from "./domain/entity/Board";
+import Card from "./domain/entity/Card";
 
 const board = new Board("TODO", "todo items");
 board.addColumn("DOING", true);

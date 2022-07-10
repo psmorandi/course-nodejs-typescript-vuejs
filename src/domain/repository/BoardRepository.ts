@@ -1,4 +1,4 @@
-import Board from "../Board";
+import Board from "../entity/Board";
 
 export default interface BoardRepository {
     save(board: Board): string;

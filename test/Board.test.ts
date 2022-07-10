@@ -1,4 +1,4 @@
-import Board from "../src/domain/Board";
+import Board from "../src/domain/entity/Board";
 
 test("Deve criar um novo quadro com nome e descrição", () => {
     const name = "name";

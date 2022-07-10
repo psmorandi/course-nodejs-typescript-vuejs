@@ -14,15 +14,15 @@ export default class Board extends Entity {
         this.columns.push(new Column(name, shouldCountCardTime));
     }
 
-    addCard(columnName: string, title: string, effort: number) {
-        const column = this.columns.find((col) => col.name === columnName);
+    addCard(columnId: string, title: string, effort: number) {
+        const column = this.columns.find((col) => col.id === columnId);
         if (column) {
             column.attach(new Card(title, effort));
         }
     }
 
-    getColumn(columnName: string) {
-        return this.columns.find((col) => col.name === columnName);
+    getColumn(columnId: string) {
+        return this.columns.find((col) => col.id === columnId);
     }
 
     getColumns(): Column[] {

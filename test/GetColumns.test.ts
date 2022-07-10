@@ -6,13 +6,13 @@ import GetColumns from "../src/domain/usecase/GetColumns";
 let getColumns: GetColumns;
 let boardRepository: BoardRepository;
 
-describe("Get Boards Test", function () {
+describe("Get Columns Test", function () {
     beforeEach(function () {
         boardRepository = new BoardRepositoryMemory();
         getColumns = new GetColumns(boardRepository);
     });
 
-    test(`GET /boards, retorna os quadros`, function () {
+    test(`GET /boards/id/columns, retorna as colunas do quadro`, function () {
         const board = new Board("TODO", "todo list");
         board.addColumn("BACKLOG", true);
         board.addColumn("DOING", true);

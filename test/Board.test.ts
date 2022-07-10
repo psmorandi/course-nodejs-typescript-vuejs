@@ -21,10 +21,11 @@ test('Deve associar cartões em cada uma das colunas contendo o título da taref
     board.addColumn("TODO", true);
     board.addColumn("DOING", true);
     board.addColumn("DONE", false);
-    board.addCard("TODO", "Task 1", 4);
-    board.addCard("TODO", "Task 2", 1);
-    board.addCard("TODO", "Task 3", 6);
-    const columnTodo = board.getColumn("TODO");
+    const columnId = board.getColumns()[0].id
+    board.addCard(columnId, "Task 1", 4);
+    board.addCard(columnId, "Task 2", 1);
+    board.addCard(columnId, "Task 3", 6);    
+    const columnTodo = board.getColumn(columnId);
     expect(columnTodo).toBeDefined()
     expect(columnTodo?.getCards()).toHaveLength(3);
 });
@@ -34,8 +35,10 @@ test('Deve ser possível calcular a estimativa total de cada coluna', () => {
     board.addColumn("TODO", true);
     board.addColumn("DOING", true);
     board.addColumn("DONE", false);
-    board.addCard("TODO", "Task 1", 4);
-    board.addCard("TODO", "Task 2", 1);
-    board.addCard("TODO", "Task 3", 6);
-    expect(board.getColumn("TODO")?.getTotalEffort()).toBe(11);
+    const columnId = board.getColumns()[0].id
+    board.addCard(columnId, "Task 1", 4);
+    board.addCard(columnId, "Task 2", 1);
+    board.addCard(columnId, "Task 3", 6);    
+    const columnTodo = board.getColumn(columnId);
+    expect(columnTodo?.getTotalEffort()).toBe(11);
 });

@@ -1,8 +1,8 @@
 import express from "express";
 
 export type RouteConfig = {
-    method: string,
-    path: string
+    method: string;
+    path: string;
 };
 
 export default class HttpServer {
@@ -14,7 +14,7 @@ export default class HttpServer {
 
     route(config: RouteConfig) {
         return (target: any, propertyKey: any, descriptor: any) => {
-            this.app[config.method](config.path, function (req: any, res: any) {                
+            this.app[config.method](config.path, function (req: any, res: any) {
                 const output = descriptor.value(req.params, req.body);
                 res.json(output);
             });

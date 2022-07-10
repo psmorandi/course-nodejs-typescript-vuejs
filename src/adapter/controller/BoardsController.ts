@@ -1,6 +1,6 @@
-import Board from "../domain/entity/Board";
-import Card from "../domain/entity/Card";
-import { http } from "../infra/HttpServer";
+import Board from "../../domain/entity/Board";
+import Card from "../../domain/entity/Card";
+import { http } from "../../infra/HttpServer";
 
 export default class BoardsController {
     @http.route({ method: "get", path: "/boards" })

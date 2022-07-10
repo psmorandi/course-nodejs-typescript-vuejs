@@ -1,4 +1,4 @@
-import BoardsController from "./application/BoardsController";
+import BoardsController from "./adapter/controller/BoardsController";
 import Board from "./domain/entity/Board";
 import Card from "./domain/entity/Card";
 

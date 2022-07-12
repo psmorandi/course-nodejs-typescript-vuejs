@@ -1,29 +1,26 @@
-import Board from "../../domain/entity/Board";
-import Card from "../../domain/entity/Card";
+import BoardRepository from "../../domain/repository/BoardRepository";
+import GetBoards from "../../domain/usecase/GetBoards";
+import GetCards from "../../domain/usecase/GetCards";
+import GetColumns from "../../domain/usecase/GetColumns";
 import { http } from "../../infra/HttpServer";
-
 export default class BoardsController {
+    constructor(private boardRepository: BoardRepository) {}
+
     @http.route({ method: "get", path: "/boards" })
     getBoards() {
-        return [new Board("TODO", "Grocerie list")];
-    }
-
-    @http.route({ method: "get", path: "/boards/:id" })
-    getBoard(req: any) {
-        console.log(`board:${req.id}`);
-        return new Board("TODO", "Grocerie list");
+        const getBoards = new GetBoards(this.boardRepository);
+        return getBoards.execute();
     }
 
     @http.route({ method: "get", path: "/boards/:boardId/columns" })
     getColumns(req: any) {
-        console.log(`board:${req.boardId}`);
-        return new Board("TODO", "Grocerie list").getColumns();
+        const getColumns = new GetColumns(this.boardRepository);
+        return getColumns.execute(req.boardId);
     }
 
     @http.route({ method: "get", path: "/boards/:boardId/columns/:columnId/cards" })
     getCards(req: any) {
-        console.log(`board:${req.boardId}`);
-        console.log(`column:${req.columnId}`);
-        return [new Card("title", 80)];
+        const getCards = new GetCards(this.boardRepository);
+        return getCards.execute(req.boardId, req.columnId);
     }
 }

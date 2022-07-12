@@ -12,6 +12,12 @@ describe("Get Boards Test", function () {
         getBoards = new GetBoards(boardRepository);
     });
 
+    test(`GET /boards, sem inicializar nada na base retorna uma lista vazia`, function(){
+        const boards = getBoards.execute();
+        expect(boards).toBeDefined();
+        expect(boards).toHaveLength(0);
+    });
+
     test(`GET /boards, retorna os quadros`, function () {
         boardRepository.save(new Board("TODO", "todo list"));
         boardRepository.save(new Board("BUY", "buy list"));

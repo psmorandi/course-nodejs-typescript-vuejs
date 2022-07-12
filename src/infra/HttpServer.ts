@@ -26,7 +26,4 @@ export default class HttpServer {
     }
 }
 
-const httpServer = new HttpServer();
-httpServer.listen(3000);
-
-export const http = httpServer;
+export const http = new HttpServer();

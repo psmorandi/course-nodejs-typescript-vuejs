@@ -1,15 +1,12 @@
-import BoardsController from "./adapter/controller/BoardsController";
-import BoardRepositoryMemory from "./adapter/repository/memory/BoardRepositoryMemory";
-import Board from "./domain/entity/Board";
-import Card from "./domain/entity/Card";
-import { http } from "./infra/HttpServer";
+import BoardsController from "./infra/controller/BoardsController";
+import PgPromiseConnection from "./infra/database/PgPromiseConnection";
+import ExpressAdapter from "./infra/http/ExpressAdapter";
 
-const board = new Board("TODO", "todo items");
-board.addColumn("DOING", true);
-board.getColumn("DOING")?.attach(new Card("card", 60));
+//await connection.query("select * from nodejs.boards", []);
+//await connection.query("select * from nodejs.columns where id_board = $1", [req.params.boardId]);
 
-console.log(board);
-
-new BoardsController(new BoardRepositoryMemory());
-
+const http = new ExpressAdapter();
+const connection = new PgPromiseConnection();
+new BoardsController(http, connection);
+console.log("Running.");
 http.listen(3000);

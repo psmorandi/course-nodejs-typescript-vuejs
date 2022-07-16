@@ -9,8 +9,8 @@ export default class ExpressAdapter implements Http {
     }
 
     route(method: string, url: string, callback: Function): void {
-        this.app[method](url, function (req: Request, res: Response) {
-            const output = callback(req.params, req.body);
+        this.app[method](url, async function (req: Request, res: Response) {
+            const output = await callback(req.params, req.body);
             res.json(output);
         });
     }

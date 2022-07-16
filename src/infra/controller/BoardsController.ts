@@ -1,28 +1,29 @@
-import BoardRepositoryMemory from "../../adapter/repository/memory/BoardRepositoryMemory";
-import BoardRepository from "../../domain/repository/BoardRepository";
-import GetBoards from "../../domain/usecase/GetBoards";
-import GetCards from "../../domain/usecase/GetCards";
-import GetColumns from "../../domain/usecase/GetColumns";
+import BoardService from "../../service/BoardService";
+import CardService from "../../service/CardService";
+import ColumnService from "../../service/ColumnService";
 import Connection from "../database/Connection";
 import Http from "../http/Http";
+import BoardRepositoryMemory from "../repository/memory/BoardRepositoryMemory";
+import CardRepositoryMemory from "../repository/memory/CardRepositoryMemory";
+import ColumnRepositoryMemory from "../repository/memory/ColumnRepositoryMemory";
 export default class BoardsController {
     constructor(readonly http: Http, readonly connection: Connection) {
         http.route("get", "/boards", async function (params: any, body: any) {
             const boardRepository = new BoardRepositoryMemory();
-            const getBoards = new GetBoards(boardRepository);
-            return getBoards.execute();
+            const boardService = new BoardService(boardRepository);
+            return boardService.getBoards();
         });
 
         http.route("get", "/boards/:boardId/columns", async function (params: any, body: any) {
-            const boardRepository = new BoardRepositoryMemory();
-            const getColumns = new GetColumns(boardRepository);
-            return getColumns.execute(params.boardId);
+            const columnRepository = new ColumnRepositoryMemory();
+            const columnService = new ColumnService(columnRepository);
+            return columnService.getColumns(params.boardId);
         });
 
         http.route("get", "/boards/:boardId/columns/:columnId/cards", async function (params: any, body: any) {
-            const boardRepository = new BoardRepositoryMemory();
-            const getCards = new GetCards(boardRepository);
-            return getCards.execute(params.boardId, params.columnId);
+            const cardRepository = new CardRepositoryMemory();
+            const cardService = new CardService(cardRepository);
+            return cardService.getCards(params.columnId);
         });
     }
 }

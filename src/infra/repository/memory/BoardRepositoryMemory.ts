@@ -5,9 +5,13 @@ export default class BoardRepositoryMemory implements BoardRepository {
     private boards: Board[];
 
     constructor() {
-        this.boards = [];
+        this.boards = [
+            new Board("Project 1", "project 1"),
+            new Board("Project 2", "project 2"),
+            new Board("Project 3", "project 3"),
+        ];
     }
-    
+
     findAll(): Promise<Board[]> {
         return Promise.resolve(this.boards);
     }

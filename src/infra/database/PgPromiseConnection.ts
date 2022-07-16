@@ -5,13 +5,14 @@ export default class PgPromiseConnection implements Connection {
     connection: any;
 
     constructor() {
-        this.connection = pgp()("postgres://postgres:123456@localhost:5432/app");
+        this.connection = pgp()("postgres://postgres:123456@postgres:5432/app-nodejs");
     }
 
     query(statement: string, params: any): Promise<any> {
         return this.connection.query(statement, params);
     }
-    close(): Promise<void> {
-        return this.connection.close();
+
+    async close(): Promise<void> {
+        return this.connection.$pool.end();
     }
 }

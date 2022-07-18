@@ -6,7 +6,7 @@ import Http from "../http/Http";
 export default class BoardsController {
     constructor(readonly http: Http, readonly repositoryFactory: RepositoryAbstractFactory) {
         http.route("get", "/boards", async function (_params: any, _body: any) {
-            const boardService = new BoardService(repositoryFactory.createBoardRepository());
+            const boardService = new BoardService(repositoryFactory);
             return await boardService.getBoards();
         });
 
@@ -18,6 +18,11 @@ export default class BoardsController {
         http.route("get", "/boards/:boardId/columns/:columnId/cards", async function (params: any, _body: any) {
             const cardService = new CardService(repositoryFactory.createCardRepository());
             return await cardService.getCards(parseInt(params.columnId));
+        });
+
+        http.route("get", "/boards/:boardId/estimative", async function (params: any, _body: any) {
+            const boardService = new BoardService(repositoryFactory);
+            return await boardService.calculateEstimative(parseInt(params.boardId));
         });
     }
 }

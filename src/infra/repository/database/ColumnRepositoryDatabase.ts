@@ -9,7 +9,7 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
         const columnsData = await this.connection.query("select * from nodejs.column where id_board = $1", [boardId]);
         const columns: Column[] = [];
         for (const columnData of columnsData) {
-            const column = new Column(columnData.name, columnData.has_estimative);
+            const column = new Column(columnData.name, columnData.has_estimative, columnData.id_column);
             columns.push(column);
         }
         return columns;

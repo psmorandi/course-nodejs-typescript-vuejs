@@ -37,3 +37,12 @@ test("Deve retornar os cartões de uma coluna por meio da API", async function (
 	expect(card2.title).toBe("Atividade 2");
 	expect(card3.title).toBe("Atividade 3");
 });
+
+test("Deve calcular a estimativa total do quadro por meio da API", async function () {
+	const response = await axios({
+		url: "http://localhost:3000/boards/1/estimative",
+		method: "get"
+	});
+	const estimative = response.data;
+	expect(estimative).toBe(6);
+});

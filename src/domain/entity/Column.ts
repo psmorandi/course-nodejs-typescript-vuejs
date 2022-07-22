@@ -3,8 +3,6 @@ export default class Column {
 
     constructor(readonly name: string, readonly hasEstimative: boolean, id?: number) {
         if (name === "") throw new Error("Name is required.");
-        if (id) {
-            this.id = id;
-        }
+        if (id) this.id = id;
     }
 }

@@ -11,3 +11,18 @@ test("Deve criar um novo quadro com nome e descrição", () => {
 test("Não deve criar um novo quadro sem nome", () => {    
     expect(() => new Board("", "description")).toThrow(new Error("Name is required."));
 });
+
+test("Deve mover uma coluna para outra posição", () => {
+    const name = "name";
+    const description = "description";
+    const board = new Board(name, description);
+    board.addColumn(1);
+    board.addColumn(2);
+    board.addColumn(3);
+    board.addColumn(4);
+    board.moveColumn(3, 1);
+    expect(board.columnIndexes[0]).toBe(1);
+    expect(board.columnIndexes[1]).toBe(3);
+    expect(board.columnIndexes[2]).toBe(2);
+    expect(board.columnIndexes[3]).toBe(4);
+});

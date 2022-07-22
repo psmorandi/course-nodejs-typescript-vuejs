@@ -20,9 +20,12 @@ test("Deve mover uma coluna para outra posição", () => {
     board.addColumn(2);
     board.addColumn(3);
     board.addColumn(4);
+    let columns = board.getColumns();
+    expect(columns).toHaveLength(4);
     board.moveColumn(3, 1);
-    expect(board.columnIndexes[0]).toBe(1);
-    expect(board.columnIndexes[1]).toBe(3);
-    expect(board.columnIndexes[2]).toBe(2);
-    expect(board.columnIndexes[3]).toBe(4);
+    columns = board.getColumns();
+    expect(columns[0]).toBe(1);
+    expect(columns[1]).toBe(3);
+    expect(columns[2]).toBe(2);
+    expect(columns[3]).toBe(4);
 });

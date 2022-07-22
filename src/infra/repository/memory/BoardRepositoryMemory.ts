@@ -11,6 +11,10 @@ export default class BoardRepositoryMemory implements BoardRepository {
             new Board("Project 3", "project 3"),
         ];
     }
+    
+    get(boardId: number): Promise<Board> {
+        throw new Error("Method not implemented.");
+    }
 
     findAll(): Promise<Board[]> {
         return Promise.resolve(this.boards);

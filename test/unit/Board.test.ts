@@ -1,4 +1,4 @@
-import Board from "../src/domain/entity/Board";
+import Board from "../../src/domain/entity/Board";
 
 test("Deve criar um novo quadro com nome e descrição", () => {
     const name = "name";
@@ -8,7 +8,7 @@ test("Deve criar um novo quadro com nome e descrição", () => {
     expect(board.description).toBe(description);
 });
 
-test("Não deve criar um novo quadro sem nome", () => {    
+test("Não deve criar um novo quadro sem nome", () => {
     expect(() => new Board("", "description")).toThrow(new Error("Name is required."));
 });
 
@@ -20,10 +20,9 @@ test("Deve mover uma coluna para outra posição", () => {
     board.addColumn(2);
     board.addColumn(3);
     board.addColumn(4);
-    let columns = board.getColumns();
-    expect(columns).toHaveLength(4);
+    expect(board.getColumns()).toHaveLength(4);
     board.moveColumn(3, 1);
-    columns = board.getColumns();
+    const columns = board.getColumns();
     expect(columns[0]).toBe(1);
     expect(columns[1]).toBe(3);
     expect(columns[2]).toBe(2);

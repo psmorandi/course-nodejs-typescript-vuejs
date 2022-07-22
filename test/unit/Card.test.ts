@@ -1,4 +1,4 @@
-import Card from "../src/domain/entity/Card";
+import Card from "../../src/domain/entity/Card";
 
 test("Deve criar um cartão", () => {
     const card = new Card("Activity 1", 3);

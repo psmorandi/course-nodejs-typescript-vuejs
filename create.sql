@@ -22,7 +22,7 @@ create table nodejs.card (
     estimative integer
 );
 
-insert into nodejs.board (id_board, name, description) values (1, 'Projeto 1', 'Meu projeto 1');
+insert into nodejs.board (name, description) values ('Projeto 1', 'Meu projeto 1');
 insert into nodejs.column (id_column, id_board, name, has_estimative) values (1, 1, 'Coluna A', true);
 insert into nodejs.column (id_column, id_board, name, has_estimative) values (2, 1, 'Coluna B', true);
 insert into nodejs.column (id_column, id_board, name, has_estimative) values (3, 1, 'Coluna C', true);

@@ -27,3 +27,13 @@ test("Deve retornar um quadro", async function () {
     expect(c.estimative).toBe(0);
     await connection.close();
 });
+
+test("Deve salvar um quadro", async function () {
+    const connection = new PgPromiseConnection();
+    const repositoryFactory = new RepositoryDatabaseFactory(connection);
+    const boardService = new BoardService(repositoryFactory);
+    const boardId = await boardService.saveBoard({ name: "Projeto 4", description: "Meu projeto 4" });
+    const board = await boardService.getBoard(boardId);
+    expect(board.name).toBe("Projeto 4");
+    await connection.close();
+});

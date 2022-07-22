@@ -22,7 +22,6 @@ export default class BoardService {
 
     async getBoard(boardId: number): Promise<GetBoardOutput> {
         const board = await this.boardRepository.get(boardId);
-        console.log(board);
         const output: GetBoardOutput = {
             name: board.name,
             estimative: 0,
@@ -49,7 +48,18 @@ export default class BoardService {
         }
         return output;
     }
+
+    async saveBoard(input: SaveBoardInput): Promise<number> {
+        const board = new Board(input.name, input.description);
+        const boardId = await this.boardRepository.save(board);
+        return boardId;
+    }
 }
+
+type SaveBoardInput = {
+    name: string;
+    description: string;
+};
 
 type ColumnOutput = {
     name: string;

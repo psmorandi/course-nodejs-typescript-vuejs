@@ -1,6 +1,6 @@
-import Card from "../../../domain/entity/Card";
-import CardRepository from "../../../domain/repository/CardRepository";
-import Connection from "../../database/Connection";
+import Card from "../../domain/entity/Card";
+import CardRepository from "../../domain/repository/CardRepository";
+import Connection from "../database/Connection";
 
 export default class CardRepositoryDatabase implements CardRepository {
     constructor(readonly connection: Connection) {}

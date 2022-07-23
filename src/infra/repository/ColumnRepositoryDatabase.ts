@@ -8,7 +8,7 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
     async update(column: Column): Promise<void> {
         await this.connection.query(
             "update nodejs.column set name = $1, has_estimative = $2, cards_order = $3 where id_column = $4",
-            [column.name, column.hasEstimative, column.getCards().join(","), column.id]
+            [column.name, column.hasEstimative, column.getCardsOrder().join(","), column.id]
         );
     }
 

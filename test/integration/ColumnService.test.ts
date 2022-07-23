@@ -35,8 +35,8 @@ test("Deve salvar um card vinculado a coluna", async function () {
     expect(column).toBeDefined();
     expect(column?.name).toBe("Backlog");
     expect(column?.hasEstimative).toBe(true);
-    expect(column?.getCards()).toHaveLength(3);
-    const [card1, card2, card3] = column?.getCards() || [];
+    expect(column?.getCardsOrder()).toHaveLength(3);
+    const [card1, card2, card3] = column?.getCardsOrder() || [];
     expect(card1).toBe(card1Id);
     expect(card2).toBe(card2Id);
     expect(card3).toBe(card3Id);

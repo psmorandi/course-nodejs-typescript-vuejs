@@ -1,5 +1,5 @@
 export default class Board {
-    readonly columns: number[] = [];
+    readonly columnsOrder: number[] = [];
     readonly id: number = 0;
 
     constructor(readonly name: string, readonly description: string, id?: number) {
@@ -8,17 +8,17 @@ export default class Board {
     }
 
     addColumn(columnId: number) {
-        this.columns.push(columnId);
+        this.columnsOrder.push(columnId);
     }
 
-    getColumns(): number[] {
-        return this.columns;
+    getColumnsOrder(): number[] {
+        return this.columnsOrder;
     }
 
     moveColumn(columnId: number, index: number) {
-        const indexOfColumn = this.columns.findIndex((id) => id === columnId);
+        const indexOfColumn = this.columnsOrder.findIndex((id) => id === columnId);
         if (indexOfColumn < 0) throw new Error("Column id not found.");
-        this.columns.splice(indexOfColumn, 1);
-        this.columns.splice(index, 0, columnId);
+        this.columnsOrder.splice(indexOfColumn, 1);
+        this.columnsOrder.splice(index, 0, columnId);
     }
 }

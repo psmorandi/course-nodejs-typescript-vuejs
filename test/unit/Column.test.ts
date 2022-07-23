@@ -15,7 +15,7 @@ test("Deve adicionar cards", () => {
     column.addCard(1);
     column.addCard(2);
     column.addCard(3);
-    expect(column.getCards()).toHaveLength(3);
+    expect(column.getCardsOrder()).toHaveLength(3);
 });
 
 test("Deve mover a ordem dos cards", () => {
@@ -23,9 +23,9 @@ test("Deve mover a ordem dos cards", () => {
     column.addCard(1);
     column.addCard(2);
     column.addCard(3);
-    expect(column.getCards()).toHaveLength(3);
+    expect(column.getCardsOrder()).toHaveLength(3);
     column.moveCard(2, 0);
-    const cards = column.getCards();
+    const cards = column.getCardsOrder();
     expect(cards[0]).toBe(2);
     expect(cards[1]).toBe(1);
     expect(cards[2]).toBe(3);

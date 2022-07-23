@@ -8,7 +8,7 @@ export default class BoardRepositoryDatabase implements BoardRepository {
     async update(board: Board): Promise<void> {
         await this.connection.query(
             "update nodejs.board set name = $1, description = $2, columns_order = $3 where id_board = $4",
-            [board.name, board.description, board.getColumns().join(","), board.id]
+            [board.name, board.description, board.getColumnsOrder().join(","), board.id]
         );
     }
 

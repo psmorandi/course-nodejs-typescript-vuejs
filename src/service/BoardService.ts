@@ -1,4 +1,5 @@
 import Board from "../domain/entity/Board";
+import Column from "../domain/entity/Column";
 import RepositoryAbstractFactory from "../domain/factory/RepositoryAbstractFactory";
 import BoardRepository from "../domain/repository/BoardRepository";
 import CardRepository from "../domain/repository/CardRepository";
@@ -31,6 +32,7 @@ export default class BoardService {
         const columns = await this.columnRepository.findAllBy(boardId);
         for (const column of columns) {
             const columnOutput: ColumnOutput = {
+                id: column.id,
                 name: column.name,
                 estimative: 0,
                 hasEstimative: column.hasEstimative,
@@ -54,7 +56,24 @@ export default class BoardService {
         const boardId = await this.boardRepository.save(board);
         return boardId;
     }
+
+    async addColumn(input: AddColumnInput): Promise<number> {
+        const board = await this.boardRepository.get(input.boardId);
+        const column = new Column(input.column.name, input.column.hasEstimative);
+        const columnId = await this.columnRepository.save(column, input.boardId);
+        board.addColumn(columnId);
+        await this.boardRepository.update(board);
+        return columnId;
+    }
 }
+
+type AddColumnInput = {
+    boardId: number;
+    column: {
+        name: string;
+        hasEstimative: boolean;
+    };
+};
 
 type SaveBoardInput = {
     name: string;
@@ -62,6 +81,7 @@ type SaveBoardInput = {
 };
 
 type ColumnOutput = {
+    id: number;
     name: string;
     estimative: number;
     hasEstimative: boolean;

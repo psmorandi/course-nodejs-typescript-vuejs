@@ -5,14 +5,16 @@ drop table nodejs.board;
 create table nodejs.board (
     id_board serial primary key,
     name text,
-    description text
+    description text,
+    columns_order text
 );
 
 create table nodejs.column (
     id_column serial primary key,
     id_board integer references nodejs.board (id_board),
     name text,
-    has_estimative boolean
+    has_estimative boolean,
+    cards_order text
 );
 
 create table nodejs.card (

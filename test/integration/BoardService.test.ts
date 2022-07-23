@@ -17,7 +17,11 @@ test("Deve retornar um quadro", async function () {
     const connection = new PgPromiseConnection();
     const repositoryFactory = new RepositoryDatabaseFactory(connection);
     const boardService = new BoardService(repositoryFactory);
-    const board = await boardService.getBoard(1);
+    const boardId = await boardService.saveBoard({ name: "Projeto 1", description: "Meu projeto 1" });
+    await boardService.addColumn({ boardId, column: { name: "Backlog", hasEstimative: true } });
+    await boardService.addColumn({ boardId, column: { name: "Doing", hasEstimative: true } });
+    await boardService.addColumn({ boardId, column: { name: "Done", hasEstimative: false } });
+    const board = await boardService.getBoard(boardId);
     expect(board.name).toBe("Projeto 1");
     expect(board.columns).toHaveLength(3);
     expect(board.estimative).toBe(6);
@@ -35,5 +39,21 @@ test("Deve salvar um quadro", async function () {
     const boardId = await boardService.saveBoard({ name: "Projeto 4", description: "Meu projeto 4" });
     const board = await boardService.getBoard(boardId);
     expect(board.name).toBe("Projeto 4");
+    await connection.close();
+});
+
+test("Deve criar uma coluna vinculada ao quadro", async () => {
+    const connection = new PgPromiseConnection();
+    const repositoryFactory = new RepositoryDatabaseFactory(connection);
+    const boardService = new BoardService(repositoryFactory);
+    const boardId = await boardService.saveBoard({ name: "Projeto 4", description: "Meu projeto 4" });
+    const columnId = await boardService.addColumn({ boardId, column: { name: "Backlog", hasEstimative: true } });
+    const board = await boardService.getBoard(boardId);
+    expect(board.name).toBe("Projeto 4");
+    expect(board.columns).toHaveLength(1);
+    const [column] = board.columns;
+    expect(column.id).toBe(columnId);
+    expect(column.name).toBe("Backlog");
+    expect(column.hasEstimative).toBe(true);
     await connection.close();
 });

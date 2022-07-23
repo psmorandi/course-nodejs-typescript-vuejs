@@ -1,8 +1,10 @@
 export default class Board {
     readonly columns: number[] = [];
+    readonly id: number = 0;
 
-    constructor(readonly name: string, readonly description: string) {
+    constructor(readonly name: string, readonly description: string, id?: number) {
         if (name === "") throw new Error("Name is required.");
+        if (id) this.id = id;
     }
 
     addColumn(columnId: number) {

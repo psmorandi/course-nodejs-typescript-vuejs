@@ -14,4 +14,12 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
         }
         return columns;
     }
+
+    async save(column: Column, boardId: number): Promise<number> {
+        const [data] = await this.connection.query(
+            "insert into nodejs.column (id_board, name, has_estimative) values ($1, $2, $3) RETURNING id_column",
+            [boardId, column.name, column.hasEstimative]
+        );
+        return parseInt(data.id_column);
+    }
 }

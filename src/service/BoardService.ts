@@ -51,7 +51,7 @@ export default class BoardService {
         return output;
     }
 
-    async saveBoard(input: SaveBoardInput): Promise<number> {
+    async saveBoard(input: CreateBoardInput): Promise<number> {
         const board = new Board(input.name, input.description);
         const boardId = await this.boardRepository.save(board);
         return boardId;
@@ -75,7 +75,7 @@ type AddColumnInput = {
     };
 };
 
-type SaveBoardInput = {
+type CreateBoardInput = {
     name: string;
     description: string;
 };

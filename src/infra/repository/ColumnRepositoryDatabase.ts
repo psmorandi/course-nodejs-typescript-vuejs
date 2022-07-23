@@ -1,6 +1,6 @@
-import Column from "../../../domain/entity/Column";
-import ColumnRepository from "../../../domain/repository/ColumnRepository";
-import Connection from "../../database/Connection";
+import Column from "../../domain/entity/Column";
+import ColumnRepository from "../../domain/repository/ColumnRepository";
+import Connection from "../database/Connection";
 
 export default class ColumnRepositoryDatabase implements ColumnRepository {
     constructor(readonly connection: Connection) {}

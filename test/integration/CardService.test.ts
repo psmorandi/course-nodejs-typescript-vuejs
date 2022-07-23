@@ -1,6 +1,6 @@
 import PgPromiseConnection from "../../src/infra/database/PgPromiseConnection";
 import RepositoryDatabaseFactory from "../../src/infra/factory/RepositoryDatabaseFactory";
-import CardRepositoryDatabase from "../../src/infra/repository/database/CardRepositoryDatabase";
+import CardRepositoryDatabase from "../../src/infra/repository/CardRepositoryDatabase";
 import BoardService from "../../src/service/BoardService";
 import CardService from "../../src/service/CardService";
 import ColumnService from "../../src/service/ColumnService";

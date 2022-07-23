@@ -1,6 +1,6 @@
-import Board from "../../../domain/entity/Board";
-import BoardRepository from "../../../domain/repository/BoardRepository";
-import Connection from "../../database/Connection";
+import Board from "../../domain/entity/Board";
+import BoardRepository from "../../domain/repository/BoardRepository";
+import Connection from "../database/Connection";
 
 export default class BoardRepositoryDatabase implements BoardRepository {
     constructor(readonly connection: Connection) {}

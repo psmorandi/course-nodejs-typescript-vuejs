@@ -26,6 +26,20 @@ export default class ColumnService {
         await this.columnRepository.update(column);
         return cardId;
     }
+
+    async moveCardToAnotherColumn(input: MoveCardInput) {
+        const fromColumn = await this.columnRepository.get(input.fromColumnId);
+        const toColumn = await this.columnRepository.get(input.toColumnId);
+        fromColumn.removeCard(input.cardId);
+        toColumn.addCard(input.cardId);
+        await this.columnRepository.update(fromColumn);
+        await this.columnRepository.update(toColumn);
+    }
 }
 
 type AddCardInput = { columnId: number; card: { title: string; estimative: number } };
+type MoveCardInput = {
+    cardId: number;
+    fromColumnId: number;
+    toColumnId: number;
+};

@@ -16,9 +16,13 @@ export default class Column {
     }
 
     moveCard(cardId: number, index: number) {
+        this.removeCard(cardId);
+        this.cardsOrder.splice(index, 0, cardId);
+    }
+
+    removeCard(cardId: number) {
         const indexOfCard = this.cardsOrder.findIndex((id) => id === cardId);
         if (indexOfCard < 0) throw new Error("Card id not found.");
         this.cardsOrder.splice(indexOfCard, 1);
-        this.cardsOrder.splice(index, 0, cardId);
     }
 }

@@ -42,3 +42,29 @@ test("Deve salvar um card vinculado a coluna", async function () {
     expect(card3).toBe(card3Id);
     await connection.close();
 });
+
+test("Deve mover um card de coluna", async () => {
+    const connection = new PgPromiseConnection();
+    const repositoryFactory = new RepositoryDatabaseFactory(connection);
+    const boardService = new BoardService(repositoryFactory);
+    const boardId = await boardService.saveBoard({ name: "Projeto 5", description: "Meu projeto 5" });
+    const backlogId = await boardService.addColumn({ boardId, column: { name: "Backlog", hasEstimative: true } });
+    const doingId = await boardService.addColumn({ boardId, column: { name: "Doing", hasEstimative: true } });
+    const doneId = await boardService.addColumn({ boardId, column: { name: "Done", hasEstimative: false } });
+    const columnService = new ColumnService(repositoryFactory);
+    const card1Id = await columnService.addCard({ columnId: backlogId, card: { title: "Task 1", estimative: 3 } });
+    await columnService.addCard({ columnId: backlogId, card: { title: "Task 2", estimative: 2 } });
+    await columnService.addCard({ columnId: backlogId, card: { title: "Task 3", estimative: 1 } });
+    await columnService.moveCardToAnotherColumn({ cardId: card1Id, fromColumnId: backlogId, toColumnId: doingId });
+    const columns = await columnService.getColumns(boardId);
+    expect(columns).toHaveLength(3);
+    const backlogColumn = columns.find((col) => col.id === backlogId);
+    expect(backlogColumn).toBeDefined();
+    const doingColumn = columns.find((col) => col.id === doingId);
+    expect(doingColumn).toBeDefined();
+    const doneColumn = columns.find((col) => col.id === doneId);
+    expect(doneColumn).toBeDefined();
+    expect(backlogColumn?.getCardsOrder()).toHaveLength(2);
+    expect(doingColumn?.getCardsOrder()).toHaveLength(1);
+    expect(doneColumn?.getCardsOrder()).toHaveLength(0);
+});

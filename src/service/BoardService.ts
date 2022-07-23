@@ -16,9 +16,12 @@ export default class BoardService {
         this.cardRepository = repositoryFactory.createCardRepository();
     }
 
-    async getBoards(): Promise<Board[]> {
+    async getBoards(): Promise<GetBoardsOutput[]> {
         const boards = await this.boardRepository.findAll();
-        return boards;
+        return boards.map((board) => {
+            const boarMapped: GetBoardsOutput = { id: board.id, name: board.name, description: board.description };
+            return boarMapped;
+        });
     }
 
     async getBoard(boardId: number): Promise<GetBoardOutput> {
@@ -92,4 +95,10 @@ type GetBoardOutput = {
     name: string;
     estimative: number;
     columns: ColumnOutput[];
+};
+
+type GetBoardsOutput = {
+    id: number;
+    name: string;
+    description: string;
 };

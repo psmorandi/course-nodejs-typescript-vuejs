@@ -6,8 +6,13 @@ import ColumnService from "../../src/service/ColumnService";
 test("Deve listar as colunas", async function () {
     const connection = new PgPromiseConnection();
     const repositoryFactory = new RepositoryDatabaseFactory(connection);
+    const boardService = new BoardService(repositoryFactory);
     const columnService = new ColumnService(repositoryFactory);
-    const columns = await columnService.getColumns(1);
+    const boardId = await boardService.saveBoard({ name: "Projeto 1", description: "Meu projeto 1" });
+    await boardService.addColumn({ boardId, column: { name: "Backlog", hasEstimative: true } });
+    await boardService.addColumn({ boardId, column: { name: "Doing", hasEstimative: true } });
+    await boardService.addColumn({ boardId, column: { name: "Done", hasEstimative: false } });
+    const columns = await columnService.getColumns(boardId);
     expect(columns).toHaveLength(3);
     await connection.close();
 });

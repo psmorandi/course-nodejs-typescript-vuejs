@@ -22,8 +22,8 @@ test("Deve retornar um quadro", async function () {
     const columnService = new ColumnService(repositoryFactory);
     const boardId = await boardService.saveBoard({ name: "Projeto 1", description: "Meu projeto 1" });
     const backlogId = await boardService.addColumn({ boardId, column: { name: "Backlog", hasEstimative: true } });
-    const doingId = await boardService.addColumn({ boardId, column: { name: "Doing", hasEstimative: true } });
-    const doneId = await boardService.addColumn({ boardId, column: { name: "Done", hasEstimative: false } });
+    await boardService.addColumn({ boardId, column: { name: "Doing", hasEstimative: true } });
+    await boardService.addColumn({ boardId, column: { name: "Done", hasEstimative: false } });
     await columnService.addCard({ columnId: backlogId, card: { title: "Task 1", estimative: 3 } });
     await columnService.addCard({ columnId: backlogId, card: { title: "Task 2", estimative: 2 } });
     await columnService.addCard({ columnId: backlogId, card: { title: "Task 3", estimative: 1 } });
@@ -31,12 +31,10 @@ test("Deve retornar um quadro", async function () {
     expect(board.name).toBe("Projeto 1");
     expect(board.columns).toHaveLength(3);
     expect(board.estimative).toBe(6);
-    const backlogColumn = board.columns.find((col) => col.id === backlogId);
-    const doingColumn = board.columns.find((col) => col.id === doingId);
-    const doneColumn = board.columns.find((col) => col.id === doneId);
-    expect(backlogColumn?.estimative).toBe(6);
-    expect(doingColumn?.estimative).toBe(0);
-    expect(doneColumn?.estimative).toBe(0);
+    const [backlogColumn, doingColumn, doneColumn] = board.columns;
+    expect(backlogColumn.estimative).toBe(6);
+    expect(doingColumn.estimative).toBe(0);
+    expect(doneColumn.estimative).toBe(0);
     await connection.close();
 });
 

@@ -31,7 +31,7 @@ export default class BoardService {
             estimative: 0,
             columns: [],
         };
-
+        const columnsOrder = board.getColumnsOrder();
         const columns = await this.columnRepository.findAllBy(boardId);
         for (const column of columns) {
             const columnOutput: ColumnOutput = {
@@ -49,7 +49,8 @@ export default class BoardService {
                 }
                 columnOutput.cards.push({ title: card.title, estimative: card.estimative });
             }
-            output.columns.push(columnOutput);
+            const columnIdex = columnsOrder.indexOf(column.id);
+            output.columns.splice(columnIdex, 0, columnOutput);
         }
         return output;
     }

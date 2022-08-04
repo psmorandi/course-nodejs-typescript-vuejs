@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "vitest": "^0.20.3",
     "vue": "^3.2.37"
   },
   "devDependencies": {

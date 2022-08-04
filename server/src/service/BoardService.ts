@@ -47,7 +47,7 @@ export default class BoardService {
                     columnOutput.estimative += card.estimative;
                     output.estimative += card.estimative;
                 }
-                columnOutput.cards.push({ title: card.title, estimative: card.estimative });
+                columnOutput.cards.push({ id: card.id, title: card.title, estimative: card.estimative });
             }
             const columnIdex = columnsOrder.indexOf(column.id);
             output.columns.splice(columnIdex, 0, columnOutput);
@@ -89,7 +89,7 @@ type ColumnOutput = {
     name: string;
     estimative: number;
     hasEstimative: boolean;
-    cards: { title: string; estimative: number }[];
+    cards: { id: number; title: string; estimative: number }[];
 };
 
 type GetBoardOutput = {

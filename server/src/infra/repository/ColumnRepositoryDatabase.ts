@@ -16,6 +16,7 @@ export default class ColumnRepositoryDatabase implements ColumnRepository {
         const [columnData] = await this.connection.query("select * from nodejs.column where id_column = $1", [
             columnId,
         ]);
+        if (!columnData) throw new Error("Column not found.");
         const column = new Column(columnData.name, columnData.has_estimative, columnData.id_column);
         if (columnData.cards_order) {
             for (const cardId of columnData.cards_order.split(",")) {

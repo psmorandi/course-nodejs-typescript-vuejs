@@ -27,6 +27,7 @@ export default class BoardService {
     async getBoard(boardId: number): Promise<GetBoardOutput> {
         const board = await this.boardRepository.get(boardId);
         const output: GetBoardOutput = {
+            id: boardId,
             name: board.name,
             estimative: 0,
             columns: [],
@@ -93,6 +94,7 @@ type ColumnOutput = {
 };
 
 type GetBoardOutput = {
+    id: number;
     name: string;
     estimative: number;
     columns: ColumnOutput[];

@@ -9,7 +9,7 @@ export default class BoardServiceHttp implements BoardService {
     const boardData = await this.httpClient.get(
       `${this.baseUrl}/boards/${boardId}`
     );
-    const board = new Board(boardData.boardId, boardData.name);
+    const board = new Board(boardData.id, boardData.name);
     for (const columnData of boardData.columns) {
       board.addColumn(columnData.name, columnData.estimative);
       for (const cardData of columnData.cards) {

@@ -20,6 +20,11 @@ export default class BoardsController {
             return await columnService.getColumns(parseInt(params.boardId));
         });
 
+        http.route("post", "/boards/:boardId/columns", async function (_params: any, body: any) {
+            const boardService = new BoardService(repositoryFactory);            
+            return await boardService.addColumn(body);
+        });
+
         http.route("get", "/boards/:boardId/columns/:columnId/cards", async function (params: any, _body: any) {
             const cardService = new CardService(repositoryFactory.createCardRepository());
             return await cardService.getCards(parseInt(params.columnId));

@@ -7,11 +7,22 @@ export default class ExpressAdapter implements Http {
     constructor() {
         this.app = express();
         this.app.use(express.json());
-        this.app.use(function(_req: any, res: any, next: any){
+        this.app.use(function (_req: any, res: any, next: any) {
             res.header("Access-Control-Allow-Origin", "*");
-			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-			res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-			next();
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+            res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            next();
+        });
+
+        this.app.use(function (req: any, res: any, next: any) {
+            if (req.method === "OPTIONS") return next();
+            if (req.url === "/login") return next();
+            const authroization = req.Headers["authorization"];
+            if (authroization) {
+                const token = authroization.replace("Bearer ", "");
+                if (token === "123456") next();
+            }
+            return res.status(401).end();
         });
     }
 

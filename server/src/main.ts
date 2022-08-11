@@ -1,3 +1,4 @@
+import AuthController from "./infra/controller/AuthController";
 import BoardsController from "./infra/controller/BoardsController";
 import PgPromiseConnection from "./infra/database/PgPromiseConnection";
 import RepositoryDatabaseFactory from "./infra/factory/RepositoryDatabaseFactory";
@@ -7,6 +8,7 @@ const http = new ExpressAdapter();
 const connection = new PgPromiseConnection();
 const repositoryFactory = new RepositoryDatabaseFactory(connection);
 new BoardsController(http, repositoryFactory);
+new AuthController(http);
 console.log("Running.");
 http.listen(3000);
 process.on("exit", async function () {

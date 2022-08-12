@@ -21,4 +21,10 @@ export default class CardRepositoryDatabase implements CardRepository {
         }
         return cards;
     }
+
+    async get(cardId: number): Promise<Card> {
+        const [cardData] = await this.connection.query("select * from nodejs.card where id_card = $1", [cardId]);
+        if (!cardData) throw new Error("Card not found.");
+        return new Card(cardData.title, cardData.estimative, cardData.id_card);
+    }
 }
